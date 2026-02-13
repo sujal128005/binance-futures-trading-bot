@@ -1,11 +1,11 @@
-import logging
+import os
+from binance.client import Client
+from dotenv import load_dotenv
 
-def setup_logging():
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler("bot.log"),
-            logging.StreamHandler()
-        ]
-    )
+load_dotenv()
+
+def get_binance_client():
+    api_key = os.getenv('BINANCE_API_KEY')
+    api_secret = os.getenv('BINANCE_API_SECRET')
+    # testnet=True points the library to https://testnet.binancefuture.com
+    return Client(api_key, api_secret, testnet=True)

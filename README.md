@@ -1,12 +1,11 @@
 ---
 
-```markdown
 # Binance Futures Trading Bot (Testnet)
 
 A modular Python CLI application for placing **Market** and **Limit** orders on the **Binance Futures USDT-M Testnet**.  
 Built as a technical assessment for a Python Developer role, with focus on clean structure, logging, validation, and error handling.
 
----
+
 
 ## 📌 Overview
 
@@ -208,7 +207,7 @@ No real funds are used.
 
 **Sujal**
 Python Developer Candidate
-Futures Trading Bot — Technical Assessment Project
+Futures Trading Bot - Technical Assessment Project
 
 ---
 
@@ -216,7 +215,4 @@ Futures Trading Bot — Technical Assessment Project
 
 This project is for assessment and educational purposes.
 
-```
 
----
-```

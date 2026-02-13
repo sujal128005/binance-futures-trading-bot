@@ -1,83 +1,222 @@
-The "error" you’re seeing at the end of your Markdown is actually just a formatting ghost—you have two opening code blocks (```) at the very bottom without any content or closing tags. This makes the file look "unclosed" or messy in a code editor.
+---
 
-Here is the clean, final version of your README.md. I’ve fixed the formatting, cleaned up the URL, and ensured it meets all the requirements from your task list perfectly.
+```markdown
+# Binance Futures Trading Bot (Testnet)
 
-Binance Futures Trading Bot (Testnet)
-A modular Python-based CLI tool for placing Market and Limit orders on the Binance Futures USDT-M Testnet. This project was developed as a technical assessment for the Python Developer position.
+A modular Python CLI application for placing **Market** and **Limit** orders on the **Binance Futures USDT-M Testnet**.  
+Built as a technical assessment for a Python Developer role, with focus on clean structure, logging, validation, and error handling.
 
-🚀 Features
-Bi-directional Trading: Full support for BUY and SELL sides.
+---
 
-Order Types: Supports both MARKET and LIMIT executions.
+## 📌 Overview
 
-CLI Interface: User-friendly interaction using the Click library.
+This bot allows users to place futures orders directly from the command line using Binance Futures Testnet APIs.  
+It is designed with modular architecture, structured logging, and defensive error handling to simulate production-style trading tools.
 
-Structured Logging: All API requests, responses, and errors are captured in bot.log.
+---
 
-Robust Error Handling: Managed exceptions for network failures and API constraints (e.g., minimum notional value).
+## 🚀 Features
 
-🛠️ Setup & Installation
-1. Prerequisites
-Python 3.8+
+- ✅ Bi-directional trading (BUY and SELL)
+- ✅ Supports MARKET and LIMIT order types
+- ✅ CLI interface using `click`
+- ✅ Structured logging to console and file
+- ✅ Environment-based credential management
+- ✅ Input validation and API constraint checks
+- ✅ Graceful error handling for network and API failures
+- ✅ Testnet-only safe execution
 
-A Binance Futures Testnet account.
+---
 
-2. Installation
-Bash
-# Clone the repository
-git clone [https://github.com/sujal128005/binance-futures-trading-bot.git](https://github.com/sujal128005/binance-futures-trading-bot.git)
+## 🧰 Tech Stack
+
+- Python 3.8+
+- Binance Futures API (USDT-M Testnet)
+- Click (CLI interface)
+- python-dotenv (environment config)
+- Logging module (structured logs)
+
+---
+
+## 📂 Project Structure
+
+```
+
+binance-futures-trading-bot/
+│
+├── cli.py                 # CLI entry point
+│
+├── bot/
+│   ├── client.py          # Binance client initialization (testnet)
+│   ├── orders.py          # Order execution logic
+│   ├── logger.py          # Logging configuration
+│
+├── requirements.txt
+├── .env.example
+├── bot.log                # Runtime logs
+└── README.md
+
+````
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1️⃣ Prerequisites
+
+- Python 3.8 or higher
+- Binance Futures Testnet account
+- Testnet API key and secret
+
+---
+
+### 2️⃣ Clone Repository
+
+```bash
+git clone https://github.com/sujal128005/binance-futures-trading-bot.git
 cd binance-futures-trading-bot
+````
 
-# Create and activate a virtual environment
+---
+
+### 3️⃣ Create Virtual Environment
+
+```bash
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
 
-# Install dependencies
+Activate:
+
+**Linux / macOS**
+
+```bash
+source venv/bin/activate
+```
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+---
+
+### 4️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
-3. Configuration
-Create a .env file in the root directory and add your Binance Testnet credentials:
+```
 
-Code snippet
-BINANCE_API_KEY=your_api_key_here
-BINANCE_API_SECRET=your_api_secret_here
-(Refer to .env.example for the template)
+---
 
-💻 Usage Examples
-Use the following commands to interact with the bot.
+## 🔐 Configuration
 
-Place a Market Order:
+Create a `.env` file in the project root.
 
-Bash
+```env
+BINANCE_API_KEY=your_testnet_api_key
+BINANCE_API_SECRET=your_testnet_api_secret
+```
+
+You can use `.env.example` as a template.
+
+---
+
+## 💻 Usage
+
+All orders are placed through the CLI.
+
+---
+
+### ▶️ Place Market Order
+
+```bash
 python cli.py --symbol BTCUSDT --side BUY --type MARKET --qty 0.005
-Place a Limit Order:
+```
 
-Bash
+---
+
+### ▶️ Place Limit Order
+
+```bash
 python cli.py --symbol BTCUSDT --side SELL --type LIMIT --qty 0.005 --price 98000
-📝 Assumptions & Logic
-Notional Value: It is assumed the user is aware of the Binance Testnet minimum notional requirement (100 USDT). Orders below this will be caught and logged as an error.
+```
 
-Wallet Balance: The bot assumes sufficient USDT margin is available in the Testnet account.
+---
 
-Time In Force: For all LIMIT orders, the bot defaults to GTC (Good 'Til Cancelled).
+## 🧠 Order Logic & Assumptions
 
-Symbol Format: Symbols are automatically converted to uppercase (e.g., btcusdt becomes BTCUSDT).
+* Minimum notional value on Binance Futures Testnet is assumed to be **100 USDT**
+* Orders below minimum notional are rejected and logged
+* LIMIT orders use default **GTC (Good Till Cancelled)**
+* Symbol input is auto-converted to uppercase
+* Bot assumes sufficient margin balance exists
 
-📁 Project Structure
-cli.py: The main entry point handling user input and command execution.
+---
 
-bot/client.py: Initializes the Binance Client with Testnet configurations.
+## 📝 Logging
 
-bot/orders.py: Contains logic for processing orders and handling API responses.
+All activity is logged to:
 
-bot/logger.py: Configures structured logging to both the console and bot.log.
+```
+bot.log
+```
 
-bot.log: Persistent log file containing session history.
+Includes:
 
-🔍 Validation & Error Handling
-The application validates:
+* API requests
+* API responses
+* Validation failures
+* Network errors
+* Order confirmations
 
-That a Price is provided when using the LIMIT order type.
+Console logs are also enabled for quick debugging.
 
-API responses for errors (logged specifically in bot.log).
+---
 
-Network connection stability during the request phase.
+## 🛡️ Validation & Error Handling
+
+The application checks:
+
+* LIMIT orders must include price
+* Quantity must be valid numeric value
+* API response errors are captured and logged
+* Network failures are handled safely
+* Invalid symbols or parameters are reported clearly
+
+---
+
+## 🧪 Testnet Safety
+
+This bot is configured **only for Binance Futures Testnet**.
+No real funds are used.
+
+---
+
+## 📌 Possible Future Improvements
+
+* Position tracking
+* Stop loss / take profit support
+* Websocket price streaming
+* Strategy plug-in system
+* Backtesting module
+* Docker support
+
+---
+
+## 👨‍💻 Author
+
+**Sujal**
+Python Developer Candidate
+Futures Trading Bot — Technical Assessment Project
+
+---
+
+## 📄 License
+
+This project is for assessment and educational purposes.
+
+```
+
+---
+```
